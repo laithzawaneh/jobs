@@ -1,0 +1,14 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+	<h:form id="menuForm">
+		<ui:remove>
+		styleClass="#{mbSec.lang.equals('ar')?'ui-menu-ar':'ui-menu-en'}"
+		</ui:remove>
+		<p:menubar>
+			<p:menuitem value="Home" outcome="/home.xhtml" />
+			<p:menuitem value="Add New Job" outcome="/addjob.xhtml" />
+		</p:menubar>
+	</h:form>
+
+	<br />
+</ui:composition>

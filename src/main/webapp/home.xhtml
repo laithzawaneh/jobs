@@ -1,0 +1,187 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+	<br />
+	<br />
+	<br />
+
+	<ui:define name="title">Job | Home Page</ui:define>
+	<ui:define name="content">
+		<div align="center">
+			<h:graphicImage value="/resources/Images/jobcover3.jpg"
+				id="homephoto" />
+		</div>
+		<h:form>
+			<p:panel>
+				<p:dataTable widgetVar="customersTable3"
+					value="#{mbJobSite.jobSiteTable}" var="d"
+					filteredValue="#{mbJobSite.filterdJobTable}" paginator="true"
+					rows="15" paginatorTemplate="{PageLinks} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" paginatorPosition="bottom"
+					sortMode="multiple" stickyHeader="true">
+
+					<f:facet name="header">
+						<div class="flex justify-content-end">
+							<p:inputText id="globalFilter"
+								onkeyup="PF('customersTable3').filter()" style="width:300px"
+								placeholder="Search all fields using global function" />
+						</div>
+					</f:facet>
+
+					<p:column headerText="Job Title" sortBy="#{d.jTitle}"
+						filterBy="#{d.jTitle}">
+						<h:outputText value="#{d.jTitle} (#{d.eLevel})" />
+					</p:column>
+
+					<p:column headerText="Industry" sortBy="#{d.indusrty}" filterBy="#{d.indusrty}">
+						<h:outputText value="#{d.indusrty}" />
+					</p:column>
+
+					<p:column headerText="Country" sortBy="#{d.country}" filterBy="#{d.country}">
+						<h:outputText value="#{d.country}(#{d.city})" />
+					</p:column>
+
+					<p:column headerText="Type" sortBy="#{d.jType}" filterBy="#{d.jType}">
+						<h:outputText value="#{d.jType}" />
+					</p:column>
+
+					<p:column headerText="Onsite/Remote" sortBy="#{d.onsiteRemote}" filterBy="#{d.onsiteRemote}">
+						<h:outputText value="#{d.onsiteRemote}" />
+					</p:column>
+
+					<p:column headerText="Description">
+						<p:commandButton value="description" update=":form:editPnl"
+							onclick="PF('descDlg').show()">
+							<f:setPropertyActionListener value="#{d}"
+								target="#{mbJobSite.selectedJobSite}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+			</p:panel>
+		</h:form>
+		<h:form id="form">
+			<br />
+			<br />
+			<br />
+			<br />
+
+			<p:dataGrid var="d" value="#{mbJobSite.jobSiteTable}" columns="3"
+				rows="100">
+				<p:column>
+					<p:panel header="#{d.jTitle} - #{d.eLevel}" toggleable="true"
+						toggleableHeader="true" collapsed="true" style="border:none;">
+						<h:panelGrid columns="2">
+
+							<h:outputLabel value="Industry :" />
+							<h:outputText value="#{d.indusrty}" />
+
+							<h:outputLabel value="Company Name :" />
+							<h:outputText value="#{d.companyName}" />
+
+							<h:outputLabel value="Email :" />
+							<h:outputText value="#{d.email}" />
+
+							<h:outputLabel value="Location :" />
+							<h:outputText value="#{d.city},#{d.country} (#{d.onsiteRemote})" />
+
+							<p:commandButton value="View Full Details"
+								action="showonejob.xhtml?faces-redirect=true"
+								update=":form:viewonejob" ajax="false">
+								<f:setPropertyActionListener value="#{d}"
+									target="#{mbJobSite.selectedJobSite}" />
+							</p:commandButton>
+						</h:panelGrid>
+					</p:panel>
+				</p:column>
+			</p:dataGrid>
+
+			<p:dialog header="Discription" widgetVar="descDlg" modal="true">
+				<p:panelGrid id="editPnl" columns="2">
+					<p:outputLabel value="Discription" />
+					<h:outputText value="#{mbJobSite.selectedJobSite.jDescription}"
+						escape="false" />
+				</p:panelGrid>
+			</p:dialog>
+		</h:form>
+
+	</ui:define>
+
+
+
+
+
+
+	<ui:remove>
+		<ui:remove>
+			<f:facet name="footer">
+				<p:outputLabel value="Copy © Laith Zawaneh 2023" styleClass="footer" />
+			</f:facet>
+		</ui:remove>
+		<p:panel>
+			<f:facet name="header">
+
+				<h:graphicImage value="/resources/Images/jobscover2.jpg" id="himage"></h:graphicImage>
+
+			</f:facet>
+
+		</p:panel>
+		<h:form>
+			<h:outputStylesheet name="java.css" library="css" />
+			<p:menubar>
+				<p:menuitem value="Home" />
+
+				<p:submenu label="Department">
+					<p:menuitem value="Features" />
+					<p:menuitem value="Information Technology" />
+					<p:menuitem value="Managment" />
+					<p:menuitem value="Teatcher" />
+					<p:menuitem value="Engenering" />
+				</p:submenu>
+			</p:menubar>
+		</h:form>
+		<ui:remove>
+
+			<p:dataTable value="#{mbJobSite.jobSiteTable}" var="d">
+
+				<p:column headerText="Job Title" sortBy="#{d.jTitle}">
+					<h:outputText value="#{d.jTitle} (#{d.eLevel})" />
+				</p:column>
+
+				<p:column headerText="Industry" sortBy="#{d.indusrty}">
+					<h:outputText value="#{d.indusrty}" />
+				</p:column>
+
+				<p:column headerText="Country" sortBy="#{d.country}">
+					<h:outputText value="#{d.country}(#{d.city})" />
+				</p:column>
+
+				<p:column headerText="Type" sortBy="#{d.jType}">
+					<h:outputText value="#{d.jType}" />
+				</p:column>
+
+				<p:column headerText="Onsite/Remote" sortBy="#{d.onsiteRemote}">
+					<h:outputText value="#{d.onsiteRemote}" />
+				</p:column>
+
+				<p:column headerText="Description">
+					<p:commandButton value="description" update=":form:editPnl"
+						onclick="PF('descDlg').show()">
+						<f:setPropertyActionListener value="#{d}"
+							target="#{mbJobSite.selectedJobSite}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</ui:remove>
+	</ui:remove>
+
+</ui:composition>
+
+
+

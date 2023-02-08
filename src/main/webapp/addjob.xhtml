@@ -1,0 +1,152 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:define name="title">Job | Add New Job</ui:define>
+<ui:define name="content">
+	<h:form id="form">
+	
+		<p:growl showDetail="true">
+			<p:autoUpdate />
+		</p:growl>
+
+		<p:panelGrid columns="2">
+			<f:facet name="header">
+				<h:outputText value="Add Job" />
+			</f:facet>
+
+
+			<ui:remove>
+				<p:outputLabel value="#{msg.lbl_id}" for="id" />
+				<p:inputNumber id="id" value="#{mbAddDept.dept.id}"
+					decimalPlaces="0" decimalSeparator=" " thousandSeparator=" "
+					required="true" requiredMessage="Please enter department id" />
+			</ui:remove>
+
+
+
+			<p:outputLabel value="Job titel" for="name" />
+			<p:inputText id="name" value="#{mbAddJob.jobsite.jTitle}"
+				required="true" requiredMessage="Please enter department name"
+				maxlength="30" validatorMessage="Please check name" />
+
+
+			<p:outputLabel value="Company Name" for="cname" />
+			<p:inputText id="cname" value="#{mbAddJob.jobsite.companyName}"
+				required="true" requiredMessage="Please enter department name"
+				maxlength="40" validatorMessage="Please check name" />
+
+			<p:outputLabel value="Email" for="email" />
+			<p:inputText id="email" value="#{mbAddJob.jobsite.email}"
+				required="true" requiredMessage="Please enter department name"
+				maxlength="40" validatorMessage="Please check name" />
+
+
+			<p:outputLabel value="Job Description" for="desc" />
+			<p:textEditor id="desc" value="#{mbAddJob.jobsite.jDescription}"
+				height="200" />
+			<ui:remove>
+				<p:editor id="desc" widgetVar="editorWidget"
+					value="#{mbAddJob.jobsite.jDescription}" width="600" />
+
+				<h:panelGrid columns="2" style="margin-top: 10px">
+					<p:commandButton value="Submit" update="display"
+						oncomplete="PF('dlg').show()" icon="pi pi-save" />
+
+					<p:commandButton value="Clear" type="button"
+						onclick="PF('editorWidget').clear();" icon="pi pi-times" />
+				</h:panelGrid>
+
+				<p:dialog header="Content" widgetVar="dlg" showEffect="fade"
+					hideEffect="fade">
+					<h:outputText id="display" value="#{mbAddJob.jobsite.jDescription}"
+						escape="false" />
+				</p:dialog>
+				<p:inputText id="desc" value="#{mbAddJob.jobsite.jDescription}"
+					required="true" requiredMessage="Please enter department name"
+					maxlength="2000" validatorMessage="Please check name" />
+				<p:textEditor id="desc" value="#{mbAddJob.jobsite.jDescription}" />
+				<p:editor id="desc" widgetVar="editor2"
+					value="#{mbAddJob.jobsite.jDescription}" height="100" />
+
+
+				<p:outputLabel value="Industry" for="industry" />
+				<p:inputText id="industry" value="#{mbAddJob.jobsite.indusrty}"
+					required="true" requiredMessage="Please enter department name"
+					maxlength="40" validatorMessage="Please check name" />
+
+
+				<p:inputText id="country" value="#{mbAddJob.jobsite.country}"
+					required="true" requiredMessage="Please enter department name"
+					maxlength="20" validatorMessage="Please check name" />
+
+				<p:inputText id="city" value="#{mbAddJob.jobsite.city}"
+					required="true" requiredMessage="Please enter department name"
+					maxlength="20" validatorMessage="Please check name" />
+			</ui:remove>
+
+			<p:outputLabel value="Industry" for="industry" />
+			<p:selectOneMenu id="industry" value="#{mbAddJob.jobsite.indusrty}">
+				<f:selectItem itemLabel="Select One" itemValue="" />
+				<f:selectItems value="#{mbAddJob.industryTable}" var="d"
+					itemLabel="#{d.eName}" itemValue="#{d.eName}" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Country" for="country" />
+			<p:selectOneMenu id="country" value="#{mbAddJob.jobsite.country}">
+
+				<f:selectItem itemLabel="Select One" itemValue="" />
+				<f:selectItems value="#{mbAddJob.countryTable}" var="d"
+					itemLabel="#{d.eName}" itemValue="#{d.eName}" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="City" for="city" />
+			<p:selectOneMenu id="city" value="#{mbAddJob.jobsite.city}">
+				<f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
+				<f:selectItems value="#{mbAddJob.cityTable}" var="d"
+					itemLabel="#{d.eName}" itemValue="#{d.eName}" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Job Type" for="type" />
+			<p:selectOneMenu id="type" value="#{mbAddJob.jobsite.jType}">
+				<f:selectItem itemLabel="Select One" itemValue="" />
+				<f:selectItem itemLabel="Full-Time" itemValue="Full-Time" />
+				<f:selectItem itemLabel="Part-Time" itemValue="Part-Time" />
+				<f:selectItem itemLabel="Contract" itemValue="Contract " />
+				<f:selectItem itemLabel="Temporary" itemValue="Temporary" />
+
+			</p:selectOneMenu>
+
+
+			<p:outputLabel value="Onsite/Remote" for="onremote" />
+			<p:selectOneMenu id="onremote"
+				value="#{mbAddJob.jobsite.onsiteRemote}">
+				<f:selectItem itemLabel="Select One" itemValue="" />
+				<f:selectItem itemLabel="Onsite" itemValue="Onsite" />
+				<f:selectItem itemLabel="Remote" itemValue="Remote" />
+				<f:selectItem itemLabel="Hybrid" itemValue="Hybrid" />
+			</p:selectOneMenu>
+
+
+			<p:outputLabel value="Experince Level" for="level" />
+			<p:selectOneMenu id="level" value="#{mbAddJob.jobsite.eLevel}">
+				<f:selectItem itemLabel="Select One" itemValue="" />
+				<f:selectItem itemLabel="Entry Level" itemValue="Entry Level" />
+				<f:selectItem itemLabel="Mid Level" itemValue="Mid Level" />
+				<f:selectItem itemLabel="Expert Level" itemValue="Expert Level" />
+				<f:selectItem itemLabel="Internship " itemValue="Internship " />
+			</p:selectOneMenu>
+
+			<f:facet name="footer">
+				<p:commandButton value="Save" action="#{mbAddJob.save()}"
+					ajax="false" />
+			</f:facet>
+
+		</p:panelGrid>
+
+	</h:form>
+</ui:define>
+</ui:composition>

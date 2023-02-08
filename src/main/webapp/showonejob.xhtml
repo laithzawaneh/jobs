@@ -1,0 +1,44 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+		<h:form id="form">
+			
+			<p:growl showDetail="true">
+				<p:autoUpdate />
+			</p:growl>
+			<p:dataGrid value="#{mbJobSite.selectedJobSite}" columns="1"
+				rows="100" id="viewonejob" widgetVar="view">
+				<p:column>
+					<p:panel
+						header="#{mbJobSite.selectedJobSite.jTitle} - #{mbJobSite.selectedJobSite.eLevel}">
+						<h:panelGrid columns="2">
+
+							<h:outputLabel value="Industry :" />
+							<h:outputText value="#{mbJobSite.selectedJobSite.indusrty}" />
+
+							<h:outputLabel value="Company Name :" />
+							<h:outputText value="#{mbJobSite.selectedJobSite.companyName}" />
+
+							<h:outputLabel value="Email :" />
+							<h:outputText value="#{mbJobSite.selectedJobSite.email}" />
+
+							<h:outputLabel value="Location :" />
+							<h:outputText
+								value="#{mbJobSite.selectedJobSite.city},#{mbJobSite.selectedJobSite.country} (#{mbJobSite.selectedJobSite.onsiteRemote})" />
+
+							<h:outputLabel value="Descripton :" />
+							<h:outputText value="#{mbJobSite.selectedJobSite.jDescription}"
+								escape="false" />
+
+						</h:panelGrid>
+					</p:panel>
+				</p:column>
+			</p:dataGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
